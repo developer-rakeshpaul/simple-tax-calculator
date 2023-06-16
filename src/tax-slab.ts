@@ -108,6 +108,12 @@ export const taxRates: TaxRates = {
     [IncomeYear.Year_2021_2022]: currentTaxSlabForeignResident,
     [IncomeYear.Year_2020_2021]: currentTaxSlabForeignResident,
   },
+  [ResidentType.Working_Holiday_Makers]: {
+    [IncomeYear.Year_2023_2024]: currentWorkingHolidayTaxSlab,
+    [IncomeYear.Year_2022_2023]: currentWorkingHolidayTaxSlab,
+    [IncomeYear.Year_2021_2022]: currentWorkingHolidayTaxSlab,
+    [IncomeYear.Year_2020_2021]: currentWorkingHolidayTaxSlab,
+  },
 };
 
 export function convertSlabToTableRows(slab: TaxRateSlab): [string, string] {

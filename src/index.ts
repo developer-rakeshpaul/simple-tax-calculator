@@ -37,6 +37,13 @@ async function calculate() {
         name: 'residentType',
         message: 'Select your residency status',
         choices: Object.values(ResidentType),
+
+        validate: (residentType: string) => {
+          if (residentType === ResidentType.Children) {
+            return 'Please use the official site for children tax rates (https://www.ato.gov.au/Calculators-and-tools/Host/?anchor=STC&anchor=STC#STC/questions)';
+          }
+          return true;
+        },
       },
     ]);
 
