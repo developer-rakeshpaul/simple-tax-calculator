@@ -46,38 +46,40 @@ var tax_slab_1 = require("./tax-slab");
 var types_1 = require("./types");
 function calculate() {
     return __awaiter(this, void 0, void 0, function () {
-        var response, incomeYear, income, residentType, taxSlab, table, tax, respone;
+        var response, incomeYear, income, residentType, taxSlab, table, tax, respone, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, enquirer_1.prompt)([
-                        {
-                            type: 'select',
-                            name: 'incomeYear',
-                            message: 'Select an income year',
-                            choices: Object.values(types_1.IncomeYear),
-                        },
-                        {
-                            type: 'input',
-                            name: 'income',
-                            message: 'Enter your total taxable income for the full income year',
-                            validate: function (input) {
-                                var income = Number(input);
-                                if (isNaN(income)) {
-                                    return 'Please enter a valid number';
-                                }
-                                if (income < 0) {
-                                    return 'Income must be greater than 0';
-                                }
-                                return true;
+                case 0:
+                    _a.trys.push([0, 3, , 4]);
+                    return [4 /*yield*/, (0, enquirer_1.prompt)([
+                            {
+                                type: 'select',
+                                name: 'incomeYear',
+                                message: 'Select an income year',
+                                choices: Object.values(types_1.IncomeYear),
                             },
-                        },
-                        {
-                            type: 'select',
-                            name: 'residentType',
-                            message: 'Select your residency status',
-                            choices: Object.values(types_1.ResidentType),
-                        },
-                    ])];
+                            {
+                                type: 'input',
+                                name: 'income',
+                                message: 'Enter your total taxable income for the full income year',
+                                validate: function (input) {
+                                    var income = Number(input);
+                                    if (!income || isNaN(income)) {
+                                        return 'Please enter a valid number';
+                                    }
+                                    if (income < 0) {
+                                        return 'Income must be greater than 0';
+                                    }
+                                    return true;
+                                },
+                            },
+                            {
+                                type: 'select',
+                                name: 'residentType',
+                                message: 'Select your residency status',
+                                choices: Object.values(types_1.ResidentType),
+                            },
+                        ])];
                 case 1:
                     response = _a.sent();
                     incomeYear = response.incomeYear, income = response.income, residentType = response.residentType;
@@ -86,12 +88,9 @@ function calculate() {
                         head: ['Taxable income', 'Tax on this income'],
                         colWidths: [30, 60],
                     });
-                    // table is an Array, so you can `push`, `unshift`, `splice` and friends
                     table.push.apply(table, (0, tax_slab_1.getTableRowsForTaxSlab)(taxSlab));
-                    // eslint-disable-next-line no-console
                     console.log(table.toString());
                     tax = (0, calculator_1.calculateTax)(incomeYear, income, residentType);
-                    // eslint-disable-next-line no-console
                     console.log("Total tax: $".concat(new Intl.NumberFormat().format(tax)));
                     return [4 /*yield*/, (0, enquirer_1.prompt)({
                             type: 'confirm',
@@ -100,14 +99,19 @@ function calculate() {
                         })];
                 case 2:
                     respone = _a.sent();
-                    console.log('🚀 ~ file: index.ts:64 ~ calculate ~ respone:', respone);
                     if (respone.repeat) {
                         calculate();
                     }
                     else {
                         process.exit(0);
                     }
-                    return [2 /*return*/];
+                    return [3 /*break*/, 4];
+                case 3:
+                    error_1 = _a.sent();
+                    console.error(error_1);
+                    process.exit(1);
+                    return [3 /*break*/, 4];
+                case 4: return [2 /*return*/];
             }
         });
     });

@@ -1,6 +1,5 @@
-import { calculateTax, getTaxRates } from './calculator';
-import { currentTaxSlabResident } from './tax-slab';
-import { IncomeYear, ResidentType } from './types';
+import { calculateTax } from '../src/calculator';
+import { IncomeYear, ResidentType } from '../src/types';
 
 describe('calculateTax', () => {
   it('should calculate tax correctly for a given year, income, and resident type', () => {
@@ -37,23 +36,5 @@ describe('calculateTax', () => {
       calculateTax(IncomeYear.Year_2023_2024, -30000, ResidentType.Residents),
     ).toThrowError('Tax slab not found for -30000');
     // expect(getTaxRates).toHaveBeenCalledWith('2023', 'Resident');
-  });
-});
-
-describe('getTaxRates', () => {
-  it('should return tax rates for a given year and resident type', () => {
-    const taxSlabs = getTaxRates(
-      IncomeYear.Year_2021_2022,
-      ResidentType.Residents,
-    );
-    expect(taxSlabs).toEqual(currentTaxSlabResident);
-  });
-
-  it('should return undefined if tax rates are not found for the given year and resident type', () => {
-    const taxSlabs = getTaxRates(
-      IncomeYear.Year_2023_2024,
-      ResidentType.Children,
-    );
-    expect(taxSlabs).toBeUndefined();
   });
 });

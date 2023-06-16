@@ -6,9 +6,13 @@
 
 ```bash
 Select an income year: 2021-22
-Enter your total taxable income for the full income year: 96000
+Enter your total taxable income for the full income year: 98000
 Select your residency status: Resident
+
+Total tax: $22,317
 ```
+
+![Simple tax calculator](simple-tax-calculator.jpg)
 
 ## Scripts
 
