@@ -3,6 +3,7 @@ import { prompt } from 'enquirer';
 import { calculateTax, getTaxRates } from './calculator';
 import { getTableRowsForTaxSlab } from './tax-slab';
 import { IncomeYear, ResidentType } from './types';
+import kleur from 'kleur';
 
 async function calculate() {
   try {
@@ -58,9 +59,22 @@ async function calculate() {
 
     table.push(...getTableRowsForTaxSlab(taxSlab));
     console.log(table.toString());
+    if (residentType === ResidentType.Residents) {
+      console.log(
+        `The above rates ${kleur.black().bold('do not')} include the ${kleur
+          .blue()
+          .bold()
+          .underline('Medicare levy')} of 2%.`,
+      );
+    }
 
     const tax = calculateTax(incomeYear, income, residentType);
-    console.log(`Total tax: $${new Intl.NumberFormat().format(tax)}`);
+    console.log(
+      `Total tax: ${kleur
+        .red()
+        .bold()
+        .underline('$' + new Intl.NumberFormat().format(tax))}`,
+    );
 
     const respone: { repeat: boolean } = await prompt({
       type: 'confirm',
