@@ -79,7 +79,7 @@ async function calculate() {
     const respone: { repeat: boolean } = await prompt({
       type: 'confirm',
       name: 'repeat',
-      message: 'Want to continue?',
+      message: 'Do you want to do another calculation?',
     });
     if (respone.repeat) {
       calculate();
